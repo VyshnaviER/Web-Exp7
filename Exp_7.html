@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Serenity Yoga Studio</title>
+
+    <!-- jQuery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #edf4ed;
+            text-align: center;
+            margin: 0;
+        }
+
+        header {
+            background-color: #456b55;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            width: 80%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input {
+            padding: 10px;
+            width: 80%;
+            margin: 10px;
+        }
+
+        button {
+            background-color: #668c72;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #365c43;
+        }
+
+        #result {
+            background-color: #e1f0e3;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        footer {
+            background-color: #456b55;
+            color: white;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>WELCOME TO SERENITY YOGA STUDIO</h1>
+    <h3>Find Your Balance, Peace and Wellness</h3>
+</header>
+
+<div class="container">
+
+    <h2>Yoga Studio Budget Calculator</h2>
+
+    <p>Enter your budget details</p>
+
+    <input type="number" id="budget"
+           placeholder="Enter Total Budget (Rs.)">
+    <br>
+
+    <input type="number" id="rent"
+           placeholder="Room Rent Percentage (%)">
+    <br>
+
+    <input type="number" id="accessories"
+           placeholder="Yoga Accessories Percentage (%)">
+    <br>
+
+    <input type="number" id="emergency"
+           placeholder="Emergency Fund Percentage (%)">
+    <br>
+
+    <input type="number" id="saving"
+           placeholder="Savings Percentage (%)">
+    <br>
+
+    <button id="calculate">
+        Evaluate My Budget
+    </button>
+
+    <div id="result"></div>
+
+</div>
+
+<footer>
+    <p>Serenity Yoga Studio</p>
+    <p>Address: 123 Wellness Street, Coimbatore, Tamil Nadu</p>
+    <p>URK24CS1259 | Web Technology Lab</p>
+</footer>
+
+<script>
+
+$(document).ready(function() {
+
+    $("#calculate").click(function() {
+
+        let budget = Number($("#budget").val());
+
+        let rent = Number($("#rent").val());
+        let accessories = Number($("#accessories").val());
+        let emergency = Number($("#emergency").val());
+        let saving = Number($("#saving").val());
+
+        if ($("#budget").val() == "" ||
+            $("#rent").val() == "" ||
+            $("#accessories").val() == "" ||
+            $("#emergency").val() == "" ||
+            $("#saving").val() == "" ||
+            budget <= 0) {
+
+            alert("Please enter all details correctly!");
+            return;
+        }
+
+        let total = rent + accessories + emergency + saving;
+
+        if ([rent, accessories, emergency, saving].some(
+            value => value < 0 || value > 100
+        )) {
+            alert("Enter valid percentages between 0 and 100!");
+            return;
+        }
+
+        if (total != 100) {
+            alert("Total percentage must be 100%!");
+            return;
+        }
+
+        let rentAmount = budget * rent / 100;
+
+        let accessoriesAmount = budget * accessories / 100;
+
+        let emergencyAmount = budget * emergency / 100;
+
+        let savingAmount = budget * saving / 100;
+
+        $("#result").html(
+            "<h3>Serenity Yoga Studio Budget Report</h3>" +
+            "<p>Total Budget: Rs. " + budget + "</p>" +
+            "<p>Room Rent: Rs. " + rentAmount + "</p>" +
+            "<p>Yoga Accessories: Rs. " + accessoriesAmount + "</p>" +
+            "<p>Emergency Fund: Rs. " + emergencyAmount + "</p>" +
+            "<p>Savings: Rs. " + savingAmount + "</p>" +
+            "<h3>Total Percentage: " + total + "%</h3>"
+        );
+
+        $("#result").show();
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
